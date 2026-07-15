@@ -184,8 +184,11 @@ async function main() {
   const token = getIdentityFromToml();
   if (!token) throw new Error("Could not find auth token in cli.toml");
 
+  const host = process.env.SPACETIME_HOST || 'localhost:3000';
+  const uri = host.startsWith('http') ? host : (host.includes('localhost') || host.includes('127.0.0.1') ? `http://${host}` : `https://${host}`);
+
   const db = DbConnection.builder()
-    .withUri('http://localhost:3000')
+    .withUri(uri)
     .withDatabaseName(DB_NAME)
     .withToken(token)
     .build();

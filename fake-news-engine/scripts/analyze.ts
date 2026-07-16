@@ -1,4 +1,8 @@
 import 'dotenv/config';
+import WebSocket from 'ws';
+globalThis.WebSocket = WebSocket as any;
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 import Groq from 'groq-sdk';
 import { execSync } from 'child_process';
 import { DbConnection } from '../src/module_bindings';

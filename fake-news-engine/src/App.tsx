@@ -6,8 +6,9 @@ export default function App() {
   const host = import.meta.env.SPACETIME_HOST || 'localhost:3000';
   const dbName = import.meta.env.SPACETIME_DB_NAME || 'fake-news-engine';
 
+  const protocol = host.includes('localhost') || host.includes('127.0.0.1') ? 'ws' : 'wss';
   const connectionBuilder = DbConnection.builder()
-    .withUri(`ws://${host}`)
+    .withUri(`${protocol}://${host}`)
     .withDatabaseName(dbName);
 
   return (

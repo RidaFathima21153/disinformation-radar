@@ -1,4 +1,8 @@
 import 'dotenv/config';
+import WebSocket from 'ws';
+globalThis.WebSocket = WebSocket as any;
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 import { DbConnection, reducers } from '../src/module_bindings';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -81,7 +85,7 @@ async function main() {
       console.log("Connected to SpacetimeDB.");
       resolve();
     });
-    (db as any).onConnectError((err: any) => reject(err));
+    (db as any).onConnectError((conn: any, err: any) => reject(err));
   });
 
   const articles = await fetchArticles();

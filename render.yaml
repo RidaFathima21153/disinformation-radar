@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: spacetime-db-server
+    env: docker
+    plan: free
+    port: 3000
